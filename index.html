@@ -1,37 +1,448 @@
+<!DOCTYPE html>  <html lang="id">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>SolusiGalbay.online - Konsultasi Galbay Pinjol</title>  
+    <!-- Meta Tags SEO -->  
+    <meta name="description" content="Solusi profesional masalah gagal bayar pinjol. Bantuan negosiasi, restrukturisasi, dan perlindungan hukum. Privasi terjamin.">  
+    <meta name="keywords" content="konsultasi pinjol, gagal bayar pinjol, solusi galbay, hutang pinjol, negosiasi pinjaman online">  
+    <meta name="author" content="SolusiGalbay.online">  
+    <meta itemprop="name" content="SolusiGalbay.online - Konsultasi Galbay Pinjol">  
+    <meta itemprop="description" content="Bebaskan diri dari tekanan pinjol dengan konsultasi profesional. Privasi 100% terjamin.">  
+    <meta property="og:title" content="SolusiGalbay.online - Konsultasi Galbay Pinjol">  
+    <meta property="og:description" content="Bantuan profesional masalah gagal bayar pinjol. Hubungi sekarang!">  
+    <meta property="og:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhojRh2sm5pWhUIVLUuPUCoq_eTf-VXDPmYJUzd54Lo_4PLiUSaoYoa-p6j_kPPbx-NDXZzZcgxXuDkh_riyhveF2hJmH-oEotUnhJO5_FXtqD7Ph__LhGwHXaQeuccnKwPVrbMAdTDb0ivEm-wNQJA9lIwwVUm3K9bH-xEM6Zem7rfMFxCHq-ZI7Tf0g/s941/1000065233.png">  
+    <!-- Preload Resources -->  
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">  
+    <!-- CSS -->  
+    <style>  
+        :root {  
+            --primary: #4a6bff;  
+            --secondary: #f8f9fa;  
+            --accent: #ff6b6b;  
+            --text: #333333;  
+            --light-text: #6c757d;  
+            --wa-green: #25D366;  
+            --wa-dark: #128C7E;  
+        }  * {  
+        margin: 0;  
+        padding: 0;  
+        box-sizing: border-box;  
+        font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;  
+    }  
+      
+    body {  
+        background-color: #f5f7ff;  
+        color: var(--text);  
+        line-height: 1.6;  
+    }  
+      
+    .container {  
+        max-width: 100%;  
+        padding: 0 15px;  
+        margin: 0 auto;  
+    }  
+      
+    header {  
+        background: linear-gradient(135deg, var(--primary), #6a5acd);  
+        color: white;  
+        padding: 25px 0;  
+        text-align: center;  
+        border-radius: 0 0 25px 25px;  
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  
+        margin-bottom: 30px;  
+        position: relative;  
+    }  
+      
+    .notification-elegant {  
+        position: fixed;  
+        top: 20px;  
+        left: 50%;  
+        transform: translateX(-50%);  
+        background: white;  
+        padding: 12px 20px;  
+        border-radius: 12px;  
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);  
+        font-size: 0.85rem;  
+        z-index: 1000;  
+        display: flex;  
+        align-items: center;  
+        gap: 12px;  
+        max-width: 90%;  
+        animation: slideDown 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);  
+        border-left: 4px solid var(--wa-green);  
+        opacity: 0;  
+        visibility: hidden;  
+        transition: all 0.3s ease;  
+    }  
+      
+    .notification-elegant.show {  
+        opacity: 1;  
+        visibility: visible;  
+        top: 25px;  
+    }  
+      
+    .notification-icon {  
+        background: var(--wa-green);  
+        color: white;  
+        width: 30px;  
+        height: 30px;  
+        border-radius: 50%;  
+        display: flex;  
+        align-items: center;  
+        justify-content: center;  
+        flex-shrink: 0;  
+        font-size: 0.9rem;  
+    }  
+      
+    .notification-content {  
+        flex: 1;  
+    }  
+      
+    .notification-close {  
+        background: none;  
+        border: none;  
+        color: var(--light-text);  
+        font-size: 1rem;  
+        cursor: pointer;  
+        margin-left: 8px;  
+        transition: color 0.2s;  
+    }  
+      
+    .notification-close:hover {  
+        color: var(--accent);  
+    }  
+      
+    .notification-highlight {  
+        color: var(--wa-dark);  
+        font-weight: 600;  
+    }  
+      
+    @keyframes slideDown {  
+        from {  
+            opacity: 0;  
+            transform: translate(-50%, -20px);  
+        }  
+        to {  
+            opacity: 1;  
+            transform: translate(-50%, 0);  
+        }  
+    }  
+      
+    .hero-image {  
+        width: 100%;  
+        max-height: 200px;  
+        object-fit: cover;  
+        border-radius: 16px;  
+        margin-bottom: 25px;  
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);  
+    }  
+      
+    .logo {  
+        font-size: 2rem;  
+        font-weight: 700;  
+        margin-bottom: 8px;  
+        letter-spacing: 0.5px;  
+    }  
+      
+    .tagline {  
+        font-size: 0.95rem;  
+        opacity: 0.9;  
+        font-weight: 300;  
+    }  
+      
+    .card {  
+        background: white;  
+        border-radius: 16px;  
+        padding: 22px;  
+        margin-bottom: 25px;  
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);  
+        transition: all 0.3s ease;  
+        border: 1px solid rgba(0, 0, 0, 0.03);  
+    }  
+      
+    .card:hover {  
+        transform: translateY(-5px);  
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);  
+    }  
+      
+    .card-title {  
+        color: var(--primary);  
+        margin-bottom: 18px;  
+        font-size: 1.35rem;  
+        font-weight: 650;  
+        display: flex;  
+        align-items: center;  
+        gap: 12px;  
+    }  
+      
+    .highlight {  
+        background-color: rgba(255, 235, 205, 0.3);  
+        padding: 16px;  
+        border-left: 4px solid var(--accent);  
+        margin: 18px 0;  
+        border-radius: 0 12px 12px 0;  
+        font-size: 0.95rem;  
+    }  
+      
+    .price-tag {  
+        background: linear-gradient(135deg, var(--accent), #ff8c66);  
+        color: white;  
+        padding: 10px 18px;  
+        border-radius: 25px;  
+        font-weight: bold;  
+        display: inline-block;  
+        margin: 12px 0;  
+        box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);  
+    }  
+      
+    .btn-wa {  
+        display: block;  
+        background: linear-gradient(135deg, var(--wa-green), var(--wa-dark));  
+        color: white;  
+        text-align: center;  
+        padding: 16px;  
+        border-radius: 12px;  
+        text-decoration: none;  
+        font-weight: 600;  
+        margin: 30px 0;  
+        box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);  
+        transition: all 0.3s ease;  
+        font-size: 1.05rem;  
+        position: relative;  
+        overflow: hidden;  
+    }  
+      
+    .btn-wa:hover {  
+        transform: translateY(-3px);  
+        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);  
+    }  
+      
+    .btn-wa i {  
+        margin-right: 8px;  
+        font-size: 1.2rem;  
+    }  
+      
+    footer {  
+        text-align: center;  
+        padding: 25px;  
+        color: var(--light-text);  
+        font-size: 0.85rem;  
+        margin-top: 40px;  
+        background-color: white;  
+        border-radius: 25px 25px 0 0;  
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);  
+    }  
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SolusiGalbay.online - Konsultasi Galbay Pinjol</title>
+    /* Hidden SEO Elements */  
+    .seo-hidden {  
+        font-size: 0;  
+        height: 0;  
+        margin: 0;  
+        visibility: hidden;  
+        overflow: hidden;  
+    }  
+</style>  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Favicon & Icons -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="android-icon-192x192.png">
-    <link rel="manifest" href="manifest.json">
-    <meta name="msapplication-config" content="browserconfig.xml">
+<!-- Favicon & Icons -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="android-icon-192x192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="msapplication-config" content="browserconfig.xml">
+</head>  
+<body>  
+    <!-- Schema.org Structured Data -->  
+    <script type="application/ld+json">  
+    {  
+      "@context": "https://schema.org",  
+      "@type": "ProfessionalService",  
+      "name": "SolusiGalbay.online",  
+      "description": "Layanan konsultasi profesional untuk masalah gagal bayar pinjaman online",  
+      "url": "https://www.solusigalbay.online",  
+      "telephone": "+6283852330333",  
+      "address": {  
+        "@type": "PostalAddress",  
+        "addressLocality": "Jakarta",  
+        "addressRegion": "ID"  
+      },  
+      "priceRange": "Rp100.000",  
+      "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 08:00-22:00"  
+    }  
+    </script>  <!-- FAQ Schema -->  
+<script type="application/ld+json">  
+{  
+  "@context": "https://schema.org",  
+  "@type": "FAQPage",  
+  "mainEntity": [{  
+    "@type": "Question",  
+    "name": "Apakah konsultasi ini aman secara hukum?",  
+    "acceptedAnswer": {  
+      "@type": "Answer",  
+      "text": "Ya, kami bekerja sesuai regulasi OJK dan UU Perlindungan Konsumen."  
+    }  
+  },{  
+    "@type": "Question",  
+    "name": "Berapa lama proses negosiasi dengan pinjol?",  
+    "acceptedAnswer": {  
+      "@type": "Answer",  
+      "text": "Biasanya 3-7 hari kerja tergantung kompleksitas kasus."  
+    }  
+  }]  
+}  
+</script>  
 
-    <!-- Meta Tags SEO -->
-    <meta name="description" content="Solusi profesional masalah gagal bayar pinjol. Bantuan negosiasi, restrukturisasi, dan perlindungan hukum. Privasi terjamin.">
-    <meta name="keywords" content="konsultasi pinjol, gagal bayar pinjol, solusi galbay, hutang pinjol, negosiasi pinjaman online">
-    <meta name="author" content="SolusiGalbay.online">
-    <meta itemprop="name" content="SolusiGalbay.online - Konsultasi Galbay Pinjol">
-    <meta itemprop="description" content="Bebaskan diri dari tekanan pinjol dengan konsultasi profesional. Privasi 100% terjamin.">
-    <meta property="og:title" content="SolusiGalbay.online - Konsultasi Galbay Pinjol">
-    <meta property="og:description" content="Bantuan profesional masalah gagal bayar pinjol. Hubungi sekarang!">
-    <meta property="og:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhojRh2sm5pWhUIVLUuPUCoq_eTf-VXDPmYJUzd54Lo_4PLiUSaoYoa-p6j_kPPbx-NDXZzZcgxXuDkh_riyhveF2hJmH-oEotUnhJO5_FXtqD7Ph__LhGwHXaQeuccnKwPVrbMAdTDb0ivEm-wNQJA9lIwwVUm3K9bH-xEM6Zem7rfMFxCHq-ZI7Tf0g/s941/1000065233.png">
+<!-- Hidden SEO Heading -->  
+<h1 class="seo-hidden">Konsultasi Pinjol - Solusi Gagal Bayar Pinjaman Online</h1>  
 
-    <!-- Preload Resources -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <!-- Konten HTML lainnya tetap seperti semula -->
-    <p>...Konten halaman kamu tetap di sini tanpa perubahan lainnya...</p>
-</body>
-</html>
+<!-- Notifikasi Elegan -->  
+<div class="notification-elegant" id="notification">  
+    <div class="notification-icon">  
+        <i class="fab fa-whatsapp"></i>  
+    </div>  
+    <div class="notification-content">  
+        <span class="notification-highlight" id="notificationClient">6283****333 (Budi)</span> baru saja konsultasi.   
+        <span class="notification-highlight" id="notificationCount">127 klien</span> hari ini  
+    </div>  
+    <button class="notification-close" id="closeNotification">&times;</button>  
+</div>  
+  
+<header>  
+    <div class="container">  
+        <div class="logo">www.solusigalbay.online</div>  
+        <div class="tagline">Konsultasi Profesional Masalah Pinjol</div>  
+    </div>  
+</header>  
+  
+<div class="container">  
+    <img   
+        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhojRh2sm5pWhUIVLUuPUCoq_eTf-VXDPmYJUzd54Lo_4PLiUSaoYoa-p6j_kPPbx-NDXZzZcgxXuDkh_riyhveF2hJmH-oEotUnhJO5_FXtqD7Ph__LhGwHXaQeuccnKwPVrbMAdTDb0ivEm-wNQJA9lIwwVUm3K9bH-xEM6Zem7rfMFxCHq-ZI7Tf0g/s941/1000065233.png"   
+        alt="Konsultasi masalah pinjol online - SolusiGalbay"   
+        title="Konsultasi Pinjol Profesional"  
+        loading="lazy"  
+        width="600"  
+        height="400"  
+        class="hero-image"  
+    >  
+      
+    <div class="card">  
+        <div class="card-title"><i class="fas fa-info-circle"></i> Tentang Layanan Kami</div>  
+        <p>Kami menyediakan layanan konsultasi khusus untuk masalah galbay (gagal bayar) pinjaman online (pinjol). Tim profesional kami akan membantu Anda memahami opsi yang tersedia dan memberikan solusi terbaik sesuai kondisi finansial Anda.</p>  
+          
+        <div class="highlight">  
+            <strong>Yang kami bantu:</strong> Negosiasi dengan perusahaan pinjol, pengajuan restrukturisasi pembayaran, penyelesaian sengketa, dan perlindungan dari ancaman atau intimidasi yang tidak sesuai aturan. <b>PRIVASI KLIEN TETAP KAMI JAMIN PRIVASI NYA</b>  
+        </div>  
+    </div>  
+      
+    <div class="card">  
+        <div class="card-title"><i class="fas fa-exclamation-triangle"></i> Risiko Galbay Pinjol</div>  
+        <p><strong>Dampak Keuangan:</strong> Bunga yang terus bertambah, denda keterlambatan, dan potensi biaya penagihan.</p>  
+        <p><strong>Dampak Psikologis:</strong> Stres akibat telepon/SMS penagihan terus-menerus.</p>  
+        <p><strong>Dampak Hukum:</strong> Potensi pelaporan ke SLIK OJK atau proses hukum lainnya.</p>  
+    </div>  
+      
+    <div class="card">  
+        <div class="card-title"><i class="fas fa-medal"></i> Keuntungan Konsultasi</div>  
+        <p><strong>Solusi Terstruktur:</strong> Rencana pembayaran sesuai kemampuan Anda.</p>  
+        <p><strong>Perlindungan Hukum:</strong> Memastikan proses penagihan sesuai aturan.</p>  
+        <p><strong>Negosiasi Profesional:</strong> Komunikasi dengan perusahaan pinjol untuk kondisi terbaik.</p>  
+    </div>  
+      
+    <div class="card">  
+        <div class="card-title"><i class="fas fa-money-bill-wave"></i> Biaya Konsultasi</div>  
+        <p>Dapatkan solusi terbaik untuk masalah galbay pinjol Anda:</p>  
+        <center><div class="price-tag">Rp 100.000 / sesi konsultasi</div></center>  
+        <p>Biaya ini termasuk analisis kondisi finansial, rekomendasi solusi, dan strategi negosiasi.</p>  
+    </div>  
+
+    <!-- Tambahan Konten SEO -->  
+    <div class="card">  
+        <div class="card-title"><i class="fas fa-newspaper"></i> Artikel Terkait</div>  
+        <ul style="padding-left: 20px;">  
+            <li><a href="#hak-peminjam">Hak-Hak Peminjam di Platform Pinjol Legal</a></li>  
+            <li><a href="#lapor-ojk">Cara Melapor ke OJK Jika Diancam Debt Collector</a></li>  
+            <li><a href="#restrukturisasi">Proses Restrukturisasi Pinjol yang Wajib Diketahui</a></li>  
+        </ul>  
+    </div>  
+
+    <div class="card">  
+        <div class="card-title"><i class="fas fa-shield-alt"></i> Legalitas</div>  
+        <p>  
+            <small>Beroperasi sesuai UU Perlindungan Konsumen No. 8 Tahun 1999 dan   
+            Peraturan OJK tentang Layanan Pinjaman Online.</small>  
+        </p>  
+    </div>  
+      
+    <a href="https://api.whatsapp.com/send?phone=6283852330333&text=Halo%20SolusiGalbay,%20saya%20butuh%20konsultasi%20pinjol" class="btn-wa" id="waButton">  
+        <i class="fab fa-whatsapp"></i> KONSULTASI VIA WHATSAPP  
+    </a>  
+</div>  
+  
+<footer>  
+    <div class="container">  
+        <p>&copy; 2017-2025 SolusiGalbay.online</p>  
+        <p>Layanan Konsultasi Profesional</p>  
+    </div>  
+</footer>  
+  
+<script>  
+    // Data notifikasi  
+    const clients = [  
+        { number: '6281****111', name: 'Budi' },  
+        { number: '6282****222', name: 'Dewi' },  
+        { number: '6285****555', name: 'Agus' },  
+        { number: '6287****777', name: 'Siti' },  
+        { number: '6289****999', name: 'Rudi' }  
+    ];  
+      
+    // Elemen notifikasi  
+    const notification = document.getElementById('notification');  
+    const clientElement = document.getElementById('notificationClient');  
+    const countElement = document.getElementById('notificationCount');  
+      
+    // Tampilkan notifikasi pertama setelah 1 detik  
+    setTimeout(showNotification, 1000);  
+      
+    // Fungsi untuk menampilkan notifikasi  
+    function showNotification() {  
+        // Ambil data random  
+        const randomClient = clients[Math.floor(Math.random() * clients.length)];  
+        const totalClients = Math.floor(Math.random() * 50) + 100;  
+          
+        // Update konten  
+        clientElement.textContent = `${randomClient.number} (${randomClient.name})`;  
+        countElement.textContent = `${totalClients} klien`;  
+          
+        // Tampilkan notifikasi dengan animasi  
+        notification.classList.add('show');  
+          
+        // Sembunyikan otomatis setelah 5 detik  
+        setTimeout(() => {  
+            notification.classList.remove('show');  
+        }, 5000);  
+    }  
+      
+    // Tutup notifikasi ketika diklik  
+    document.getElementById('closeNotification').addEventListener('click', function() {  
+        notification.classList.remove('show');  
+    });  
+      
+    // Tampilkan notifikasi baru saat hover tombol WA  
+    document.getElementById('waButton').addEventListener('mouseenter', function() {  
+        // Sembunyikan dulu jika sedang tampil  
+        notification.classList.remove('show');  
+          
+        // Tampilkan yang baru setelah 300ms  
+        setTimeout(showNotification, 300);  
+    });  
+      
+    // Notifikasi otomatis setiap 15 detik  
+    setInterval(showNotification, 15000);  
+</script>
+
+</body>  
+        </html>
