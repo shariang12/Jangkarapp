@@ -1,822 +1,351 @@
-<!DOCTYPE html>  <html lang="id">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Laporan Kapal - SMRT DJPL KSOP PANARUKAN</title>  
-    <style>  
-        :root {  
-            --primary: #4361ee;  
-            --secondary: #3f37c9;  
-            --accent: #4895ef;  
-            --danger: #f72585;  
-            --success: #4cc9f0;  
-            --dark: #212529;  
-            --light: #f8f9fa;  
-            --white: #ffffff;  
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
-            --transition: all 0.3s ease;  
-        }  body {  
-        font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
-        max-width: 800px;  
-        margin: 0 auto;  
-        padding: 0;  
-        background-color: #f5f7fa;  
-        color: var(--dark);  
-        line-height: 1.6;  
-    }  
-      
-    .header-container {  
-        position: relative;  
-        width: 100%;  
-        height: 140px;  
-        border-radius: 12px 12px 0 0;  
-        overflow: hidden;  
-        background: linear-gradient(135deg, var(--primary), var(--secondary));  
-        box-shadow:   
-            inset 0 0 20px rgba(0,0,0,0.2),  
-            0 6px 12px rgba(0,0,0,0.15);  
-        border-bottom: 4px solid rgba(255,255,255,0.25);  
-        margin-bottom: 5px;  
-    }  
-      
-    .header-gif {  
-        width: 100%;  
-        height: 100%;  
-        object-fit: cover;  
-        display: block;  
-        position: relative;  
-        border: 3px solid rgba(255,255,255,0.3);  
-        box-sizing: border-box;  
-        opacity: 0.9;  
-    }  
-      
-    /* New datetime styling with embossed effect */  
-    .datetime-container {  
-        position: absolute;  
-        width: 100%;  
-        top: 15px;  
-        display: flex;  
-        justify-content: space-between;  
-        padding: 0 15px;  
-        box-sizing: border-box;  
-    }  
-      
-    .time-display, .date-display {  
-        font-weight: 700;  
-        color: var(--white);  
-        text-shadow:   
-            1px 1px 1px rgba(0,0,0,0.3),  
-            -1px -1px 1px rgba(255,255,255,0.1);  
-        padding: 6px 12px;  
-        border-radius: 6px;  
-        background: rgba(0,0,0,0.1);  
-        backdrop-filter: blur(2px);  
-        border: 1px solid rgba(255,255,255,0.2);  
-        box-shadow:  
-            inset 0 1px 0 rgba(255,255,255,0.2),  
-            inset 0 -1px 0 rgba(0,0,0,0.2);  
-        font-size: 14px;  
-    }  
-      
-    .time-display {  
-        left: 15px;  
-        text-align: left;  
-    }  
-      
-    .date-display {  
-        right: 15px;  
-        text-align: right;  
-    }  
-      
-    /* Rest of your CSS remains exactly the same */  
-    .container {  
-        background-color: var(--white);  
-        border-radius: 0 0 12px 12px;  
-        box-shadow: 0 6px 18px rgba(0,0,0,0.08);  
-        overflow: hidden;  
-        padding-bottom: 20px;  
-        margin-top: -5px;  
-    }  
-      
-    h1 {  
-        color: var(--primary);  
-        text-align: center;  
-        font-size: 24px;  
-        margin: 20px 0;  
-        padding: 0 20px;  
-        font-weight: 700;  
-        letter-spacing: 0.5px;  
-    }  
-      
-    .selection-btn {  
-        display: block;  
-        width: calc(100% - 40px);  
-        padding: 16px 20px;  
-        margin: 12px 20px;  
-        background: linear-gradient(135deg, var(--primary), var(--secondary));  
-        color: var(--white);  
-        border: none;  
-        border-radius: 8px;  
-        font-size: 16px;  
-        font-weight: 500;  
-        text-align: left;  
-        cursor: pointer;  
-        transition: var(--transition);  
-        position: relative;  
-        box-shadow: var(--shadow);  
-    }  
-      
-    .selection-btn:hover {  
-        background: linear-gradient(135deg, var(--secondary), var(--primary));  
-        transform: translateY(-3px);  
-        box-shadow: 0 8px 15px rgba(0,0,0,0.15);  
-    }  
-      
-    .selection-btn::after {  
-        content: '›';  
-        position: absolute;  
-        right: 20px;  
-        font-size: 22px;  
-        transition: var(--transition);  
-    }  
-      
-    .selection-btn.active::after {  
-        transform: rotate(90deg);  
-    }  
-      
-    .selection-value {  
-        font-weight: 400;  
-        font-style: italic;  
-        margin-left: 8px;  
-        opacity: 0.9;  
-    }  
-      
-    .modal {  
-        display: none;  
-        position: fixed;  
-        top: 0;  
-        left: 0;  
-        width: 100%;  
-        height: 100%;  
-        background-color: rgba(0,0,0,0.5);  
-        z-index: 1000;  
-        justify-content: center;  
-        align-items: center;  
-        backdrop-filter: blur(3px);  
-    }  
-      
-    .modal-content {  
-        background-color: var(--white);  
-        width: 90%;  
-        max-width: 500px;  
-        max-height: 85vh;  
-        border-radius: 12px;  
-        overflow: hidden;  
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);  
-        display: flex;  
-        flex-direction: column;  
-        transform: translateY(20px);  
-        transition: all 0.3s ease-out;  
-        animation: modalFadeIn 0.4s forwards;  
-    }  
-      
-    @keyframes modalFadeIn {  
-        to {  
-            transform: translateY(0);  
-            opacity: 1;  
-        }  
-    }  
-      
-    .modal-header {  
-        background: linear-gradient(135deg, var(--primary), var(--secondary));  
-        color: var(--white);  
-        padding: 18px;  
-        font-size: 18px;  
-        font-weight: 600;  
-        letter-spacing: 0.5px;  
-    }  
-      
-    .modal-body {  
-        padding: 20px;  
-        overflow-y: auto;  
-        flex-grow: 1;  
-    }  
-      
-    .option-group {  
-        margin: 15px 0;  
-    }  
-      
-    .option-group label {  
-        display: block;  
-        padding: 14px 18px;  
-        margin: 8px 0;  
-        border-radius: 8px;  
-        transition: var(--transition);  
-        cursor: pointer;  
-        background-color: var(--light);  
-        font-weight: 500;  
-    }  
-      
-    .option-group label:hover {  
-        background-color: #e9ecef;  
-        transform: translateX(5px);  
-    }  
-      
-    .modal-footer {  
-        padding: 15px 20px;  
-        display: flex;  
-        justify-content: flex-end;  
-        border-top: 1px solid #eee;  
-    }  
-      
-    .btn {  
-        padding: 10px 22px;  
-        border-radius: 8px;  
-        border: none;  
-        cursor: pointer;  
-        font-weight: 600;  
-        transition: var(--transition);  
-        font-size: 14px;  
-        letter-spacing: 0.5px;  
-    }  
-      
-    .btn-primary {  
-        background: linear-gradient(135deg, var(--primary), var(--secondary));  
-        color: var(--white);  
-        box-shadow: var(--shadow);  
-    }  
-      
-    .btn-primary:hover {  
-        background: linear-gradient(135deg, var(--secondary), var(--primary));  
-        transform: translateY(-2px);  
-        box-shadow: 0 6px 12px rgba(0,0,0,0.15);  
-    }  
-      
-    .counter-group {  
-        margin: 20px 0;  
-    }  
-      
-    .counter {  
-        display: flex;  
-        align-items: center;  
-        margin: 18px 0;  
-        padding: 12px 15px;  
-        border-radius: 8px;  
-        background-color: var(--light);  
-        transition: var(--transition);  
-    }  
-      
-    .counter:hover {  
-        transform: translateY(-2px);  
-        box-shadow: var(--shadow);  
-    }  
-      
-    .counter label {  
-        flex: 1;  
-        font-size: 15px;  
-        font-weight: 500;  
-    }  
-      
-    .counter-controls {  
-        display: flex;  
-        align-items: center;  
-    }  
-      
-    .counter-btn {  
-        width: 38px;  
-        height: 38px;  
-        font-size: 18px;  
-        background: linear-gradient(135deg, var(--primary), var(--secondary));  
-        color: var(--white);  
-        border: none;  
-        border-radius: 8px;  
-        cursor: pointer;  
-        transition: var(--transition);  
-        display: flex;  
-        align-items: center;  
-        justify-content: center;  
-    }  
-      
-    .counter-btn:hover {  
-        background: linear-gradient(135deg, var(--secondary), var(--primary));  
-        transform: scale(1.1);  
-    }  
-      
-    .counter-input {  
-        width: 65px;  
-        height: 38px;  
-        text-align: center;  
-        margin: 0 10px;  
-        border: 1px solid #ddd;  
-        border-radius: 8px;  
-        font-weight: 600;  
-        font-size: 16px;  
-        transition: var(--transition);  
-    }  
-      
-    .counter-input:focus {  
-        border-color: var(--primary);  
-        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);  
-    }  
-      
-    .send-btn {  
-        display: block;  
-        width: calc(100% - 40px);  
-        padding: 16px;  
-        background: linear-gradient(135deg, #25D366, #128C7E);  
-        color: var(--white);  
-        border: none;  
-        border-radius: 8px;  
-        font-size: 16px;  
-        font-weight: 600;  
-        cursor: pointer;  
-        margin: 25px 20px 15px;  
-        transition: var(--transition);  
-        box-shadow: var(--shadow);  
-        text-align: center;  
-        letter-spacing: 0.5px;  
-    }  
-      
-    .send-btn:hover {  
-        background: linear-gradient(135deg, #128C7E, #25D366);  
-        transform: translateY(-3px);  
-        box-shadow: 0 8px 15px rgba(0,0,0,0.2);  
-    }  
-      
-    .footer {  
-        text-align: center;  
-        padding: 15px;  
-        font-size: 12px;  
-        color: #6c757d;  
-        margin-top: 15px;  
-        background-color: var(--light);  
-        border-radius: 0 0 12px 12px;  
-        border-top: 1px solid #eee;  
-    }  
-      
-    input[type="radio"],  
-    input[type="checkbox"] {  
-        margin-right: 12px;  
-        transform: scale(1.25);  
-        accent-color: var(--primary);  
-    }  
-      
-    .selected-items {  
-        margin-top: 6px;  
-        font-size: 14px;  
-        color: #adb5bd;  
-        font-style: italic;  
-    }  
-      
-    .port-select {  
-        width: 100%;  
-        padding: 12px 15px;  
-        border: 1px solid #ddd;  
-        border-radius: 8px;  
-        font-size: 15px;  
-        font-weight: 500;  
-        transition: var(--transition);  
-        background-color: var(--white);  
-    }  
-      
-    .port-select:focus {  
-        border-color: var(--primary);  
-        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);  
-        outline: none;  
-    }  
-      
-    /* Animations */  
-    @keyframes fadeIn {  
-        from { opacity: 0; }  
-        to { opacity: 1; }  
-    }  
-      
-    .animate-fade {  
-        animation: fadeIn 0.5s ease-out;  
-    }  
-</style>  
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-</head>  
-<body>  
-    <div class="header-container animate-fade">  
-        <img class="header-gif" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHcVUNKSd343smtIW8z_2ds_yTYgqaYIDrqGjPycV6jjvFM_t3SwzvoXolk9FjUXCRBMnnlqetzE6oQH48MywokdMt4K2p9hah5TQ66QZSvYc-rO2OPgXQnkaIHnVwW3QAly4QKlKk2BRj_S7ttwv-CZo8Csdu60-D4MCEzMiJwe21ukgE-GN_ra5mvA/s400/1000047799.gif" alt="Header KSOP Panarukan">  <!-- New datetime container with embossed effect -->  
-    <div class="datetime-container">  
-        <div class="time-display" id="current-time"></div>  
-        <div class="date-display" id="current-date"></div>  
-    </div>  
-</div>  
-  
-<div class="container animate-fade">  
-    <h1>LAPORAN WILKER JANGKAR</h1>  
-      
-    <button class="selection-btn" onclick="openModal('ship-modal')">  
-        Kapal: <span class="selection-value" id="ship-value">Belum dipilih</span>  
-    </button>  
-      
-    <button class="selection-btn" onclick="openModal('report-modal')">  
-        Jenis Laporan: <span class="selection-value" id="report-value">Belum dipilih</span>  
-    </button>  
-      
-    <button class="selection-btn" onclick="openModal('port-modal')">  
-        Pelabuhan: <span class="selection-value" id="port-value">Belum dipilih</span>  
-    </button>  
-      
-    <button class="selection-btn" onclick="openModal('staff-modal')">  
-        Petugas: <span class="selection-value" id="staff-value">Belum dipilih</span>  
-        <div class="selected-items" id="staff-selected"></div>  
-    </button>  
-      
-    <button class="selection-btn" onclick="openModal('cargo-modal')">  
-        Muatan: <span class="selection-value" id="cargo-value">Belum diisi</span>  
-    </button>  
-      
-    <button class="send-btn" onclick="sendReport()">  
-        <i class="fab fa-whatsapp"></i> KIRIM LAPORAN  
-    </button>  
-      
-    <div class="footer">  
-        Copyright &copy; <span id="current-year"></span> SMRT DJPL KSOP PANARUKAN  
-    </div>  
-</div>  
-
-<!-- Modal Kapal -->  
-<div class="modal" id="ship-modal">  
-    <div class="modal-content">  
-        <div class="modal-header">Pilih Kapal</div>  
-        <div class="modal-body">  
-            <div class="option-group">  
-                <label>  
-                    <input type="radio" name="ship" value="KMP. Wicitra Dharma 1" onchange="updateSelection('ship', this)">  
-                    KMP. Wicitra Dharma 1  
-                </label>  
-                <label>  
-                    <input type="radio" name="ship" value="KMP. Dharma Kartika IX" onchange="updateSelection('ship', this)">  
-                    KMP. Dharma Kartika IX  
-                </label>  
-                <label>  
-                    <input type="radio" name="ship" value="KMP. Sabuk Nusantara" onchange="updateSelection('ship', this)">  
-                    KMP. Sabuk Nusantara  
-                </label>  
-            </div>  
-        </div>  
-        <div class="modal-footer">  
-            <button class="btn btn-primary" onclick="closeModal('ship-modal')">Simpan</button>  
-        </div>  
-    </div>  
-</div>  
-
-<!-- Modal Jenis Laporan -->  
-<div class="modal" id="report-modal">  
-    <div class="modal-content">  
-        <div class="modal-header">Jenis Laporan</div>  
-        <div class="modal-body">  
-            <div class="option-group">  
-                <label>  
-                    <input type="radio" name="report-type" value="Kedatangan" onchange="updateSelection('report', this)">  
-                    Kedatangan  
-                </label>  
-                <label>  
-                    <input type="radio" name="report-type" value="Keberangkatan" onchange="updateSelection('report', this)">  
-                    Keberangkatan  
-                </label>  
-            </div>  
-        </div>  
-        <div class="modal-footer">  
-            <button class="btn btn-primary" onclick="closeModal('report-modal')">Simpan</button>  
-        </div>  
-    </div>  
-</div>  
-
-<!-- Modal Pelabuhan -->  
-<div class="modal" id="port-modal">  
-    <div class="modal-content">  
-        <div class="modal-header">Pilih Pelabuhan</div>  
-        <div class="modal-body">  
-            <select id="port" class="port-select" onchange="updateSelection('port', this)">  
-                <option value="">Pilih Pelabuhan</option>  
-                <option value="Sapudi">Sapudi</option>  
-                <option value="Sumenep">Sumenep</option>  
-                <option value="Kalianget">Kalianget</option>  
-                <option value="Pelabuhan Lain">Pelabuhan Lain</option>  
-                <option value="Jangkar">Jangkar</option>  
-                <option value="Lembar">Lembar</option>  
-            </select>  
-        </div>  
-        <div class="modal-footer">  
-            <button class="btn btn-primary" onclick="closeModal('port-modal')">Simpan</button>  
-        </div>  
-    </div>  
-</div>  
-
-<!-- Modal Petugas -->  
-<div class="modal" id="staff-modal">  
-    <div class="modal-content">  
-        <div class="modal-header">Pilih Petugas</div>  
-        <div class="modal-body">  
-            <div class="option-group">  
-                <label>  
-                    <input type="checkbox" name="staff" value="Guruh Andika" onchange="updateStaffSelection()">  
-                    Guruh Andika  
-                </label>  
-                <label>  
-                    <input type="checkbox" name="staff" value="Hakim Al-Majid" onchange="updateStaffSelection()">  
-                    Hakim Al-Majid  
-                </label>  
-                <label>  
-                    <input type="checkbox" name="staff" value="Pradana Haris K" onchange="updateStaffSelection()">  
-                    Pradana Haris K  
-                </label>  
-                <label>  
-                    <input type="checkbox" name="staff" value="Fauzan" onchange="updateStaffSelection()">  
-                    Fauzan  
-                </label>  
-                <label>  
-                    <input type="checkbox" name="staff" value="Ardi" onchange="updateStaffSelection()">  
-                    Ardi  
-                </label>  
-                <label>  
-                    <input type="checkbox" name="staff" value="Andreas" onchange="updateStaffSelection()">  
-                    Andreas  
-                </label>  
-                <label>  
-                    <input type="checkbox" name="staff" value="Syaiful" onchange="updateStaffSelection()">  
-                    Syaiful  
-                </label>  
-                <label>  
-                    <input type="checkbox" name="staff" value="Dimas" onchange="updateStaffSelection()">  
-                    Dimas  
-                </label>  
-                <label>  
-                    <input type="checkbox" name="staff" value="Adit" onchange="updateStaffSelection()">  
-                    Adit  
-                </label>  
-            </div>  
-        </div>  
-        <div class="modal-footer">  
-            <button class="btn btn-primary" onclick="closeModal('staff-modal')">Simpan</button>  
-        </div>  
-    </div>  
-</div>  
-
-<!-- Modal Muatan -->  
-<div class="modal" id="cargo-modal">  
-    <div class="modal-content">  
-        <div class="modal-header">Data Muatan</div>  
-        <div class="modal-body">  
-            <div class="counter-group">  
-                <div class="counter">  
-                    <label>Penumpang:</label>  
-                    <div class="counter-controls">  
-                        <button class="counter-btn" onclick="decrement('passenger')">-</button>  
-                        <input type="number" id="passenger" class="counter-input" value="0" min="0">  
-                        <button class="counter-btn" onclick="increment('passenger')">+</button>  
-                    </div>  
-                </div>  
-                <div class="counter">  
-                    <label>SPD Motor:</label>  
-                    <div class="counter-controls">  
-                        <button class="counter-btn" onclick="decrement('motor')">-</button>  
-                        <input type="number" id="motor" class="counter-input" value="0" min="0">  
-                        <button class="counter-btn" onclick="increment('motor')">+</button>  
-                    </div>  
-                </div>  
-                <div class="counter">  
-                    <label>KK / Pick Up:</label>  
-                    <div class="counter-controls">  
-                        <button class="counter-btn" onclick="decrement('minibus')">-</button>  
-                        <input type="number" id="minibus" class="counter-input" value="0" min="0">  
-                        <button class="counter-btn" onclick="increment('minibus')">+</button>  
-                    </div>  
-                </div>  
-                <div class="counter">  
-                    <label>Truck Sedang:</label>  
-                    <div class="counter-controls">  
-                        <button class="counter-btn" onclick="decrement('truck-medium')">-</button>  
-                        <input type="number" id="truck-medium" class="counter-input" value="0" min="0">  
-                        <button class="counter-btn" onclick="increment('truck-medium')">+</button>  
-                    </div>  
-                </div>  
-                <div class="counter">  
-                    <label>Truck Besar:</label>  
-                    <div class="counter-controls">  
-                        <button class="counter-btn" onclick="decrement('truck-large')">-</button>  
-                        <input type="number" id="truck-large" class="counter-input" value="0" min="0">  
-                        <button class="counter-btn" onclick="increment('truck-large')">+</button>  
-                    </div>  
-                </div>  
-            </div>  
-        </div>  
-        <div class="modal-footer">  
-            <button class="btn btn-primary" onclick="updateCargoSelection(); closeModal('cargo-modal')">Simpan</button>  
-        </div>  
-    </div>  
-</div>  
-
-<script>  
-    // Tanggal dan waktu otomatis  
-    function updateDateTime() {  
-        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };  
-        const today = new Date();  
-        document.getElementById('current-date').textContent = today.toLocaleDateString('id-ID', dateOptions);  
-          
-        const hours = String(today.getHours()).padStart(2, '0');  
-        const minutes = String(today.getMinutes()).padStart(2, '0');  
-        document.getElementById('current-time').textContent = `${hours}.${minutes} WIB`;  
-          
-        window.currentTimeForReport = `${hours}.${minutes}`;  
-        document.getElementById('current-year').textContent = today.getFullYear();  
-    }  
-      
-    function startClock() {  
-        updateDateTime();  
-        setInterval(updateDateTime, 60000);  
-    }  
-      
-    // Modal functions  
-    function openModal(id) {  
-        document.getElementById(id).style.display = 'flex';  
-        document.body.style.overflow = 'hidden';  
-    }  
-      
-    function closeModal(id) {  
-        document.getElementById(id).style.display = 'none';  
-        document.body.style.overflow = 'auto';  
-    }  
-      
-    // Update selection display with port logic  
-    function updateSelection(type, element) {  
-        const valueElement = document.getElementById(`${type}-value`);  
-          
-        if (type === 'port') {  
-            valueElement.textContent = element.value || 'Belum dipilih';  
-        } else {  
-            valueElement.textContent = element.value;  
-        }  
-          
-        // Auto-set pelabuhan jangkar jika memilih keberangkatan  
-        if (type === 'report' && element.value === 'Keberangkatan') {  
-            const portSelect = document.getElementById('port');  
-            portSelect.innerHTML = `  
-                <option value="">Pilih Pelabuhan</option>  
-                <option value="Jangkar">Jangkar</option>  
-            `;  
-            document.getElementById('port-value').textContent = 'Jangkar';  
-            portSelect.value = 'Jangkar';  
-        }  
-          
-        // Reset ke semua opsi jika memilih kedatangan  
-        if (type === 'report' && element.value === 'Kedatangan') {  
-            const portSelect = document.getElementById('port');  
-            portSelect.innerHTML = `  
-                <option value="">Pilih Pelabuhan</option>  
-                <option value="Sapudi">Sapudi</option>  
-                <option value="Sumenep">Sumenep</option>  
-                <option value="Kalianget">Kalianget</option>  
-                <option value="Pelabuhan Lain">Pelabuhan Lain</option>  
-                <option value="Jangkar">Jangkar</option>  
-                <option value="Lembar">Lembar</option>  
-            `;  
-            document.getElementById('port-value').textContent = 'Belum dipilih';  
-            portSelect.value = '';  
-        }  
-          
-        if (element.type === 'radio') {  
-            setTimeout(() => closeModal(`${type}-modal`), 300);  
-        }  
-    }  
-      
-    // Update staff selection display  
-    function updateStaffSelection() {  
-        const checkboxes = document.querySelectorAll('input[name="staff"]:checked');  
-        const valueElement = document.getElementById('staff-value');  
-        const selectedElement = document.getElementById('staff-selected');  
-          
-        if (checkboxes.length === 0) {  
-            valueElement.textContent = 'Belum dipilih';  
-            selectedElement.textContent = '';  
-        } else {  
-            valueElement.textContent = `${checkboxes.length} petugas dipilih`;  
-            selectedElement.textContent = Array.from(checkboxes).map(cb => cb.value).join(', ');  
-        }  
-    }  
-      
-    // Update cargo selection display  
-    function updateCargoSelection() {  
-        const passenger = document.getElementById('passenger').value;  
-        const motor = document.getElementById('motor').value;  
-        const minibus = document.getElementById('minibus').value;  
-        const truckMedium = document.getElementById('truck-medium').value;  
-        const truckLarge = document.getElementById('truck-large').value;  
-          
-        const total = parseInt(passenger) + parseInt(motor) + parseInt(minibus) + parseInt(truckMedium) + parseInt(truckLarge);  
-        document.getElementById('cargo-value').textContent = total > 0 ? `${total} item muatan` : 'Belum diisi';  
-    }  
-      
-    // Counter functions  
-    function increment(id) {  
-        const input = document.getElementById(id);  
-        input.value = parseInt(input.value) + 1;  
-        input.dispatchEvent(new Event('change'));  
-    }  
-      
-    function decrement(id) {  
-        const input = document.getElementById(id);  
-        if (parseInt(input.value) > 0) {  
-            input.value = parseInt(input.value) - 1;  
-            input.dispatchEvent(new Event('change'));  
-        }  
-    }  
-      
-    // Kirim laporan  
-    function sendReport() {  
-        if (!validateInputs()) return;  
-          
-        const message = formatMessage();  
-        const phoneNumber = '6285232385558';  
-        const encodedMessage = encodeURIComponent(message);  
-        window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');  
-    }  
-      
-    // Validasi input  
-    function validateInputs() {  
-        if (!document.querySelector('input[name="ship"]:checked')) {  
-            alert('Pilih nama kapal terlebih dahulu!');  
-            return false;  
-        }  
-          
-        if (!document.querySelector('input[name="report-type"]:checked')) {  
-            alert('Pilih jenis laporan terlebih dahulu!');  
-            return false;  
-        }  
-          
-        if (!document.getElementById('port').value) {  
-            alert('Pilih pelabuhan terlebih dahulu!');  
-            return false;  
-        }  
-          
-        if (document.querySelectorAll('input[name="staff"]:checked').length === 0) {  
-            alert('Pilih minimal satu petugas!');  
-            return false;  
-        }  
-          
-        return true;  
-    }  
-      
-    // Format pesan  
-    function formatMessage() {  
-        const ship = document.querySelector('input[name="ship"]:checked').value;  
-        const reportType = document.querySelector('input[name="report-type"]:checked').value;  
-        const port = document.getElementById('port').value;  
-          
-        const staffCheckboxes = document.querySelectorAll('input[name="staff"]:checked');  
-        let staffList = '';  
-        staffCheckboxes.forEach((cb, index) => {  
-            staffList += `${index + 1}. ${cb.value}\n`;  
-        });  
-          
-        const passenger = document.getElementById('passenger').value;  
-        const motor = document.getElementById('motor').value;  
-        const minibus = document.getElementById('minibus').value;  
-        const truckMedium = document.getElementById('truck-medium').value;  
-        const truckLarge = document.getElementById('truck-large').value;  
-          
-        function formatValue(value) {  
-            return value === "0" ? "-" : `${value}`;  
-        }  
-          
-        return `Assalamualaikum Wr Wb\n` +  
-               `Selamat ${getGreetingTime()} ijin melaporkan ${document.getElementById('current-date').textContent} ${reportType.toLowerCase()} ${ship} dari Pelabuhan ${port}, Jam ${window.currentTimeForReport} Wib :\n\n` +  
-               `Petugas :\n${staffList}\n` +  
-               `● Dengan manifest Muatan ${ship} :\n\n` +  
-               `1. Penumpang : ${passenger} Orang\n` +  
-               `2. Spd Motor : ${formatValue(motor)} Unit\n` +  
-               `3. KK / Pick Up : ${formatValue(minibus)} Unit\n` +  
-               `4. Truck Sedang : ${formatValue(truckMedium)} Unit\n` +  
-               `5. Truck Besar : ${formatValue(truckLarge)} Unit\n\n\n` +  
-               `Demikian laporan yang dapat disampaikan, Terimakasih\n\n` +  
-               `> ⓘ pesan ini dilaporkan secara otomatis dari *APLIKASI WILKER JANGKAR*._`;  
-    }  
-      
-    // Fungsi untuk menentukan salam berdasarkan waktu  
-    function getGreetingTime() {  
-        const hour = new Date().getHours();  
-        if (hour < 11) return 'pagi';  
-        if (hour < 15) return 'siang';  
-        if (hour < 18) return 'sore';  
-        return 'malam';  
-    }  
-      
-    // Inisialisasi saat halaman dimuat  
-    window.onload = function() {  
-        startClock();  
-        document.getElementById('port').value = '';  
-        document.querySelectorAll('.counter-input').forEach(input => {  
-            input.addEventListener('change', updateCargoSelection);  
-        });  
-    };  
-</script>  
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-</body>  
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolusiGalbay.online - Konsultasi Galbay Pinjol</title>
+    <style>
+        :root {
+            --primary: #4a6bff;
+            --secondary: #f8f9fa;
+            --accent: #ff6b6b;
+            --text: #333333;
+            --light-text: #6c757d;
+            --wa-green: #25D366;
+            --wa-dark: #128C7E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 0 15px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #6a5acd);
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        /* Notifikasi Elegan */
+        .notification-elegant {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            font-size: 0.85rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 90%;
+            animation: slideDown 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-left: 4px solid var(--wa-green);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-elegant.show {
+            opacity: 1;
+            visibility: visible;
+            top: 25px;
+        }
+        
+        .notification-icon {
+            background: var(--wa-green);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: 8px;
+            transition: color 0.2s;
+        }
+        
+        .notification-close:hover {
+            color: var(--accent);
+        }
+        
+        .notification-highlight {
+            color: var(--wa-dark);
+            font-weight: 600;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+        
+        .hero-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        .tagline {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-title {
+            color: var(--primary);
+            margin-bottom: 18px;
+            font-size: 1.35rem;
+            font-weight: 650;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .highlight {
+            background-color: rgba(255, 235, 205, 0.3);
+            padding: 16px;
+            border-left: 4px solid var(--accent);
+            margin: 18px 0;
+            border-radius: 0 12px 12px 0;
+            font-size: 0.95rem;
+        }
+        
+        .price-tag {
+            background: linear-gradient(135deg, var(--accent), #ff8c66);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 12px 0;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-wa {
+            display: block;
+            background: linear-gradient(135deg, var(--wa-green), var(--wa-dark));
+            color: white;
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-wa:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        .btn-wa i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--light-text);
+            font-size: 0.85rem;
+            margin-top: 40px;
+            background-color: white;
+            border-radius: 25px 25px 0 0;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Notifikasi Elegan -->
+    <div class="notification-elegant" id="notification">
+        <div class="notification-icon">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+        <div class="notification-content">
+            <span class="notification-highlight" id="notificationClient">6283****333 (Budi)</span> baru saja konsultasi. 
+            <span class="notification-highlight" id="notificationCount">127 klien</span> hari ini
+        </div>
+        <button class="notification-close" id="closeNotification">&times;</button>
+    </div>
+    
+    <header>
+        <div class="container">
+            <div class="logo">www.solusigalbay.online</div>
+            <div class="tagline">Konsultasi Profesional Masalah Pinjol</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgioDDFH6fz-HYYDhsnK6MTJMfVPMUrqFtiHlKLIIkqz3kGel5xKYHyJ4Th-a6oPmAyHBxncGE63M5hRlYrT9FdG8MNf9oRuZygWQ0yqC9wea6ICP988w3lnD_pvzeeh1OgP4a4exq8ugTXy2W0j5_RhfiTQho2rLpEIvJjS5xKdLTY9wAeTMwjN9tSpQ/s1536/1000065161.png" alt="Konsultasi Keuangan" class="hero-image">
+        
+        <div class="card">
+            <div class="card-title"><i class="fas fa-info-circle"></i> Tentang Layanan Kami</div>
+            <p>Kami menyediakan layanan konsultasi khusus untuk masalah galbay (gagal bayar) pinjaman online (pinjol). Tim profesional kami akan membantu Anda memahami opsi yang tersedia dan memberikan solusi terbaik sesuai kondisi finansial Anda.</p>
+            
+            <div class="highlight">
+                <strong>Yang kami bantu:</strong> Negosiasi dengan perusahaan pinjol, pengajuan restrukturisasi pembayaran, penyelesaian sengketa, dan perlindungan dari ancaman atau intimidasi yang tidak sesuai aturan. <b>PRIVASI KLIEN TETAP KAMI JAMIN PRIVASI NYA</b>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title"><i class="fas fa-exclamation-triangle"></i> Risiko Galbay Pinjol</div>
+            <p><strong>Dampak Keuangan:</strong> Bunga yang terus bertambah, denda keterlambatan, dan potensi biaya penagihan.</p>
+            <p><strong>Dampak Psikologis:</strong> Stres akibat telepon/SMS penagihan terus-menerus.</p>
+            <p><strong>Dampak Hukum:</strong> Potensi pelaporan ke SLIK OJK atau proses hukum lainnya.</p>
+        </div>
+        
+        <div class="card">
+            <div class="card-title"><i class="fas fa-medal"></i> Keuntungan Konsultasi</div>
+            <p><strong>Solusi Terstruktur:</strong> Rencana pembayaran sesuai kemampuan Anda.</p>
+            <p><strong>Perlindungan Hukum:</strong> Memastikan proses penagihan sesuai aturan.</p>
+            <p><strong>Negosiasi Profesional:</strong> Komunikasi dengan perusahaan pinjol untuk kondisi terbaik.</p>
+        </div>
+        
+        <div class="card">
+            <div class="card-title"><i class="fas fa-money-bill-wave"></i> Biaya Konsultasi</div>
+            <p>Dapatkan solusi terbaik untuk masalah galbay pinjol Anda:</p>
+            <center><div class="price-tag">Rp 100.000 / sesi konsultasi</div></center>
+            <p>Biaya ini termasuk analisis kondisi finansial, rekomendasi solusi, dan strategi negosiasi.</p>
+        </div>
+        
+        <a href="https://wa.me/6283852330333" class="btn-wa" id="waButton">
+            <i class="fab fa-whatsapp"></i> HUBUNGI KAMI
+        </a>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2017-2025 SolusiGalbay.online</p>
+            <p>Layanan Konsultasi Profesional</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Data notifikasi
+        const clients = [
+            { number: '6281****111', name: 'Budi' },
+            { number: '6282****222', name: 'Dewi' },
+            { number: '6285****555', name: 'Agus' },
+            { number: '6287****777', name: 'Siti' },
+            { number: '6289****999', name: 'Rudi' }
+        ];
+        
+        // Elemen notifikasi
+        const notification = document.getElementById('notification');
+        const clientElement = document.getElementById('notificationClient');
+        const countElement = document.getElementById('notificationCount');
+        
+        // Tampilkan notifikasi pertama setelah 1 detik
+        setTimeout(showNotification, 1000);
+        
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification() {
+            // Ambil data random
+            const randomClient = clients[Math.floor(Math.random() * clients.length)];
+            const totalClients = Math.floor(Math.random() * 50) + 100;
+            
+            // Update konten
+            clientElement.textContent = `${randomClient.number} (${randomClient.name})`;
+            countElement.textContent = `${totalClients} klien`;
+            
+            // Tampilkan notifikasi dengan animasi
+            notification.classList.add('show');
+            
+            // Sembunyikan otomatis setelah 5 detik
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+        
+        // Tutup notifikasi ketika diklik
+        document.getElementById('closeNotification').addEventListener('click', function() {
+            notification.classList.remove('show');
+        });
+        
+        // Tampilkan notifikasi baru saat hover tombol WA
+        document.getElementById('waButton').addEventListener('mouseenter', function() {
+            // Sembunyikan dulu jika sedang tampil
+            notification.classList.remove('show');
+            
+            // Tampilkan yang baru setelah 300ms
+            setTimeout(showNotification, 300);
+        });
+        
+        // Notifikasi otomatis setiap 15 detik
+        setInterval(showNotification, 15000);
+    </script>
+</body>
 </html>
